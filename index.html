@@ -1,63 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <title>Document</title>
 </head>
+
 <body class="bg-dark">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-    </header>
-    <main class="text-white">
-        <h1 class="text-center">Este projeto foi elaborado para praticar API e Filtros de busca</h1>
-        <article class="char-cont">
-            <section class="char-box">
-                <img src="https://rickandmortyapi.com/api/character/avatar/1.jpeg" alt="">
-                <div class="char-info">
-                    <h4>Nome: Ricky Sanches</h4>
-                    <p class="alive">■ Status: Alive</p>
-                    <p>Genero: Male</p>
-                    <p>Location: Earth</p>
-                </div>
-                <!-- <ul>
-                    <li>Nome: Ricky Sanches</li>
-                    <li>Status</li>
-                    <li>Genero</li>
-                    <li>Localização</li>
-                </ul> -->
-            </section>
-        </article>
-    </main>
-    <footer class="py-3 my-4">
-        <p class="text-center text-muted">© 2021, Wilson Salles Junior</p>
-    </footer>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="Status-drop" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Alive</a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="Status-drop" id="status">
+                <li class="dropdown-item" id="status-all">All</li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="Gender-drop" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Male</a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="Gender-drop" id="gender">
+                <li class="dropdown-item" id="gender-all">All</li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="Location-drop" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Location</a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="Location-drop" id="location">
+                <li class="dropdown-item" id="location-all">All</li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="text-white">
+    <h1 class="text-center">Este projeto foi elaborado para praticar API e Filtros de busca</h1>
+    <article class="char-cont">
+    </article>
+  </main>
+  <footer class="py-3 my-4">
+    <p class="text-center text-muted">© 2021, Wilson Salles Junior</p>
+  </footer>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

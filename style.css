@@ -30,3 +30,9 @@
 .alive{
     color: rgb(0, 255, 0);
 }
+.dead{
+    color: rgb(255, 30, 0);
+}
+.unknow{
+    color: rgb(0, 255, 242);
+}
