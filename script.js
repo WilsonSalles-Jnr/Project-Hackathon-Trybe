@@ -1,11 +1,25 @@
 const container = document.getElementsByClassName('char-cont');
+const pager = document.getElementById('page')
 const statusAtl = document.getElementById('status')
 const genero = document.getElementById('gender')
 const locationAtl = document.getElementById('location')
 const stsText = document.getElementById('Status-drop')
 const gdrText = document.getElementById('Gender-drop')
 const lctText = document.getElementById('Location-drop')
+const btnNext = document.getElementById('nextPage')
+const btnBack = document.getElementById('backPage')
 
+btnNext.addEventListener('click',()=>{
+  page += 1
+  pagination()
+})
+btnBack.addEventListener('click',()=>{
+  page -=1;
+  pagination()
+})
+
+let pageArr =[]
+let page = 1;
 let statusCalled = false
 let genderCalled = false
 let locationCalled = false
@@ -135,7 +149,7 @@ const display = async () => {
 }
 
 const putChar = () =>{
-  charJSON.forEach((cur)=>{
+  paginationArr.forEach((cur)=>{
     const box = document.createElement('section')
           box.classList.add('char-box')
           const imagem = document.createElement('img')
@@ -165,30 +179,41 @@ const putChar = () =>{
           container[0].appendChild(box)
   })
 }
+
+
+let paginationArr = []
+
+const pagination = () =>{
+  if(page === 1){
+    btnBack.classList.add('disabled')
+  } else {
+    btnBack.classList.remove('disabled')
+  }
+  if(page === Math.ceil(charJSON.length/15)){
+    btnNext.classList.add('disabled')
+  } else {
+    btnNext.classList.remove('disabled')
+  }
+  changePage();
+  paginationArr = []
+  pager.innerText = `${page} / ${Math.ceil(charJSON.length/15)}`
+  let indice = 15 * page - 15
+  for(let i = indice; i < page * 15; i += 1){
+    paginationArr.push(charJSON[i])
+  }
+  putChar()
+
+}
+
+const changePage = () =>{
+  while(container[0].firstChild){
+    container[0].removeChild(container[0].firstChild)
+  }
+}
 const ordenado = async () =>{
   await display()
   .then(()=>{
-    putChar()
+    pagination()
   })
 }
 ordenado()
-// const callChars = () => {
-//     let indexer = 1
-//     display().then(() => {
-//           // return new Promise(()=>{
-//           // console.log(charJSON[0].name)
-
-//           // })
-//           // let par = document.createElement('p')
-//           // par.innerText = charJSON[0].name
-//           // container[0].appendChild(par)
-//           // })
-//           // console.log(charJSON)
-
-//         }
-
-//         const callPage = () => {
-
-//         }
-
-//         callChars()
