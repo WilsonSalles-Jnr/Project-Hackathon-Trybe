@@ -36,3 +36,6 @@
 .unknow{
     color: rgb(0, 255, 242);
 }
+.pagination{
+    justify-content: space-around;
+}

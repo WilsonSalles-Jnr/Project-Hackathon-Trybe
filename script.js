@@ -16,10 +16,10 @@ let stsShort = []
 let genderArr = []
 let locShort = []
 
-const listStatus =() =>{
-  if(statusCalled === false){
+const listStatus = () => {
+  if (statusCalled === false) {
     statusCalled = true;
-    return stsShort = [...new Set(stsArr)].forEach((atual)=>{
+    return stsShort = [...new Set(stsArr)].forEach((atual) => {
       const filtStatus = document.createElement('li')
       filtStatus.classList.add('dropdown-item')
       filtStatus.id = atual
@@ -29,10 +29,10 @@ const listStatus =() =>{
   }
 }
 
-const listGender =() =>{
-  if(genderCalled === false){
+const listGender = () => {
+  if (genderCalled === false) {
     genderCalled = true;
-    return genderArr = [...new Set(arr)].forEach((atual)=>{
+    return genderArr = [...new Set(arr)].forEach((atual) => {
       const filtGen = document.createElement('li')
       filtGen.classList.add('dropdown-item')
       filtGen.id = atual
@@ -42,10 +42,10 @@ const listGender =() =>{
   }
 }
 
-const listLocation =() =>{
-  if(locationCalled === false){
+const listLocation = () => {
+  if (locationCalled === false) {
     locationCalled = true;
-    return locShort = [...new Set(locArr)].forEach((atual)=>{
+    return locShort = [...new Set(locArr)].forEach((atual) => {
       const filtLoc = document.createElement('li')
       filtLoc.classList.add('dropdown-item')
       filtLoc.id = atual.name
@@ -55,43 +55,88 @@ const listLocation =() =>{
   }
 }
 
-const filtroStatus = (charList, tipo) =>{
-  if(tipo === 'All' || tipo === 'Status'){
+const filtroStatus = (charList, tipo) => {
+  if (tipo === 'All' || tipo === 'Status') {
     return charList
   }
-  return charList.filter((cur)=>cur.status === tipo)
+  return charList.filter((cur) => cur.status === tipo)
 }
-const filtroGenero = (charList, tipo) =>{
-  if(tipo === 'All' || tipo === 'Gender'){
+const filtroGenero = (charList, tipo) => {
+  if (tipo === 'All' || tipo === 'Gender') {
     return charList
   }
-  return charList.filter((cur)=>cur.gender === tipo)
+  return charList.filter((cur) => cur.gender === tipo)
 }
-const filtroLive = (charList, tipo) =>{
-  if(tipo === 'All' || tipo === 'Location'){
+const filtroLive = (charList, tipo) => {
+  if (tipo === 'All' || tipo === 'Location') {
     return charList
   }
   return charList.filter((cur) => cur.location === tipo)
 }
 const filtred = (param) => {
-  filtroLive(filtroGenero(filtroStatus(param,stsText.innerText),gdrText.innerText),lctText.innerText)
+  filtroLive(filtroGenero(filtroStatus(param, stsText.innerText), gdrText.innerText), lctText.innerText)
 }
 
+const charJSON = []
 
-const callChars = () => {
-  let indexer = 1
-  for(let i = 1; i < 35; i += 1){
+const display = async () => {
+    for (let i = 1; i < 35; i += 1) {
     indexer = i
     const url = `https://rickandmortyapi.com/api/character/?page=${indexer}`
-    fetch(url).then((called) => called.json())
+    await fetch(url).then((called) => called.json())
       .then((dados) => {
         dados.results.forEach(cur => {
+
+          charJSON.push({
+            name: cur.name,
+            status: cur.status,
+            gender: cur.gender,
+            location: cur.location,
+            image: cur.image
+          })
 
           stsArr.push(cur.status)
           arr.push(cur.gender)
           locArr.push(cur.location)
 
-          const box = document.createElement('section')
+          // const box = document.createElement('section')
+          // box.classList.add('char-box')
+          // const imagem = document.createElement('img')
+          // imagem.src = cur.image;
+          // box.appendChild(imagem)
+          // const divInfo = document.createElement('div')
+          // const namer = document.createElement('h4')
+          // namer.innerText = `Name: ${cur.name}`
+          // const stts = document.createElement('p')
+          // stts.innerText = `■ Status: ${cur.status}`
+          // if (cur.status === 'Alive') {
+          //   stts.classList.add('alive')
+          // } else if (cur.status === 'unknown') {
+          //   stts.classList.add('unknow')
+          // } else {
+          //   stts.classList.add('dead')
+          // }
+          // const gnr = document.createElement('p');
+          // gnr.innerText = `Gender: ${cur.gender}`
+          // const lcl = document.createElement('p')
+          // lcl.innerText = `Location: ${cur.location.name}`
+          // divInfo.appendChild(namer)
+          // divInfo.appendChild(stts)
+          // divInfo.appendChild(gnr)
+          // divInfo.appendChild(lcl)
+          // box.appendChild(divInfo)
+          // container[0].appendChild(box)
+        });
+        listStatus()
+        listGender()
+        listLocation()
+      })
+  }
+}
+
+const putChar = () =>{
+  charJSON.forEach((cur)=>{
+    const box = document.createElement('section')
           box.classList.add('char-box')
           const imagem = document.createElement('img')
           imagem.src = cur.image;
@@ -118,12 +163,32 @@ const callChars = () => {
           divInfo.appendChild(lcl)
           box.appendChild(divInfo)
           container[0].appendChild(box)
-        });
-        listStatus()
-        listGender()
-        listLocation()
-      })
-  }
+  })
 }
+const ordenado = async () =>{
+  await display()
+  .then(()=>{
+    putChar()
+  })
+}
+ordenado()
+// const callChars = () => {
+//     let indexer = 1
+//     display().then(() => {
+//           // return new Promise(()=>{
+//           // console.log(charJSON[0].name)
 
-callChars()
+//           // })
+//           // let par = document.createElement('p')
+//           // par.innerText = charJSON[0].name
+//           // container[0].appendChild(par)
+//           // })
+//           // console.log(charJSON)
+
+//         }
+
+//         const callPage = () => {
+
+//         }
+
+//         callChars()
