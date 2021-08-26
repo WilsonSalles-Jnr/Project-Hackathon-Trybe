@@ -1,3 +1,5 @@
+
+
 const container = document.getElementsByClassName('char-cont');
 const pager = document.getElementById('page')
 const statusAtl = document.getElementById('status')
@@ -17,6 +19,23 @@ btnBack.addEventListener('click',()=>{
   page -=1;
   pagination()
 })
+
+document.getElementById('status-all').addEventListener('click',()=>{
+  page = 1
+  stsText.innerText = 'Status'
+  pagination()
+})
+document.getElementById('gender-all').addEventListener('click',()=>{
+  page = 1
+  gdrText.innerText = 'Gender'
+  pagination()
+})
+document.getElementById('location-all').addEventListener('click',()=>{
+  page = 1
+  lctText.innerText = 'Location'
+  pagination()
+})
+
 
 let pageArr =[]
 let page = 1;
@@ -38,6 +57,11 @@ const listStatus = () => {
       filtStatus.classList.add('dropdown-item')
       filtStatus.id = atual
       filtStatus.innerText = atual
+      filtStatus.addEventListener('click',(event)=>{
+        page = 1
+        stsText.innerText = event.target.innerText
+        pagination()
+      })
       statusAtl.appendChild(filtStatus)
     })
   }
@@ -51,6 +75,11 @@ const listGender = () => {
       filtGen.classList.add('dropdown-item')
       filtGen.id = atual
       filtGen.innerText = atual
+      filtGen.addEventListener('click',(event)=>{
+        page = 1
+        gdrText.innerText = event.target.innerText
+        pagination()
+      })
       genero.appendChild(filtGen)
     })
   }
@@ -64,6 +93,11 @@ const listLocation = () => {
       filtLoc.classList.add('dropdown-item')
       filtLoc.id = atual.name
       filtLoc.innerText = atual.name
+      filtLoc.addEventListener('click',(event)=>{
+        page=1
+        lctText.innerText = event.target.innerText
+        pagination()
+      })
       locationAtl.appendChild(filtLoc)
     })
   }
@@ -184,22 +218,25 @@ const putChar = () =>{
 let paginationArr = []
 
 const pagination = () =>{
+  let filtrados = filtroLive(filtroGenero(filtroStatus(charJSON, stsText.innerText), gdrText.innerText), lctText.innerText)
   if(page === 1){
     btnBack.classList.add('disabled')
   } else {
     btnBack.classList.remove('disabled')
   }
-  if(page === Math.ceil(charJSON.length/15)){
+  if(page === Math.ceil(filtrados.length/15)){
     btnNext.classList.add('disabled')
   } else {
     btnNext.classList.remove('disabled')
   }
   changePage();
   paginationArr = []
-  pager.innerText = `${page} / ${Math.ceil(charJSON.length/15)}`
+  pager.innerText = `${page} / ${Math.ceil(filtrados.length/15)}`
   let indice = 15 * page - 15
   for(let i = indice; i < page * 15; i += 1){
-    paginationArr.push(charJSON[i])
+    if(filtrados[i] !== undefined){
+      paginationArr.push(filtrados[i])
+    }
   }
   putChar()
 
@@ -217,3 +254,5 @@ const ordenado = async () =>{
   })
 }
 ordenado()
+
+//próximo passo é ordenar
