@@ -91,8 +91,8 @@ const listLocation = () => {
     return locShort = [...new Set(locArr)].forEach((atual) => {
       const filtLoc = document.createElement('li')
       filtLoc.classList.add('dropdown-item')
-      filtLoc.id = atual.name
-      filtLoc.innerText = atual.name
+      filtLoc.id = atual
+      filtLoc.innerText = atual
       filtLoc.addEventListener('click',(event)=>{
         page=1
         lctText.innerText = event.target.innerText
@@ -119,7 +119,7 @@ const filtroLive = (charList, tipo) => {
   if (tipo === 'All' || tipo === 'Location') {
     return charList
   }
-  return charList.filter((cur) => cur.location === tipo)
+  return charList.filter((cur) => cur.location.name === tipo)
 }
 const filtred = (param) => {
   filtroLive(filtroGenero(filtroStatus(param, stsText.innerText), gdrText.innerText), lctText.innerText)
@@ -134,7 +134,7 @@ const display = async () => {
     await fetch(url).then((called) => called.json())
       .then((dados) => {
         dados.results.forEach(cur => {
-
+          
           charJSON.push({
             name: cur.name,
             status: cur.status,
@@ -145,7 +145,8 @@ const display = async () => {
 
           stsArr.push(cur.status)
           arr.push(cur.gender)
-          locArr.push(cur.location)
+          locArr.push(cur.location.name)
+          console.log(cur.location.name)
 
           // const box = document.createElement('section')
           // box.classList.add('char-box')
