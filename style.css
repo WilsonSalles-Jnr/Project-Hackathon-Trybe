@@ -1,8 +1,8 @@
 .char-box{
     background-image: linear-gradient(45deg, #f0e14a ,#e89ac7 15%);
     margin: 2% 0;
-    width: 500px;
-    height: 200px;
+    width: 30%;
+    height: 230px;
     display: flex;
     border-radius: 25px;
     color: #44281d;
@@ -38,4 +38,33 @@
 }
 .pagination{
     justify-content: space-around;
+}
+.empty{
+    height: 80vh;
+}
+.empty h3{
+    margin: auto auto;
+}
+
+@media (max-width: 1514px) {
+    .char-box{
+        width: 45%;
+        font-size: 1.2em;
+    }
+}
+@media (max-width: 1065px){
+    .char-box{
+        width: 90%;
+        height: 300px;
+        font-size: 1.3em;
+    }
+}
+@media (max-width: 733px){
+    .char-box{
+        flex-direction: column;
+        height: auto;
+    }
+    .char-box img{
+        border-radius: 25px 25px 0 0;
+    }
 }

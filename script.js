@@ -1,5 +1,3 @@
-
-
 const container = document.getElementsByClassName('char-cont');
 const pager = document.getElementById('page')
 const statusAtl = document.getElementById('status')
@@ -11,33 +9,33 @@ const lctText = document.getElementById('Location-drop')
 const btnNext = document.getElementById('nextPage')
 const btnBack = document.getElementById('backPage')
 
-btnNext.addEventListener('click',()=>{
+btnNext.addEventListener('click', () => {
   page += 1
   pagination()
 })
-btnBack.addEventListener('click',()=>{
-  page -=1;
+btnBack.addEventListener('click', () => {
+  page -= 1;
   pagination()
 })
 
-document.getElementById('status-all').addEventListener('click',()=>{
+document.getElementById('status-all').addEventListener('click', () => {
   page = 1
   stsText.innerText = 'Status'
   pagination()
 })
-document.getElementById('gender-all').addEventListener('click',()=>{
+document.getElementById('gender-all').addEventListener('click', () => {
   page = 1
   gdrText.innerText = 'Gender'
   pagination()
 })
-document.getElementById('location-all').addEventListener('click',()=>{
+document.getElementById('location-all').addEventListener('click', () => {
   page = 1
   lctText.innerText = 'Location'
   pagination()
 })
 
 
-let pageArr =[]
+let pageArr = []
 let page = 1;
 let statusCalled = false
 let genderCalled = false
@@ -57,7 +55,7 @@ const listStatus = () => {
       filtStatus.classList.add('dropdown-item')
       filtStatus.id = atual
       filtStatus.innerText = atual
-      filtStatus.addEventListener('click',(event)=>{
+      filtStatus.addEventListener('click', (event) => {
         page = 1
         stsText.innerText = event.target.innerText
         pagination()
@@ -75,7 +73,7 @@ const listGender = () => {
       filtGen.classList.add('dropdown-item')
       filtGen.id = atual
       filtGen.innerText = atual
-      filtGen.addEventListener('click',(event)=>{
+      filtGen.addEventListener('click', (event) => {
         page = 1
         gdrText.innerText = event.target.innerText
         pagination()
@@ -93,8 +91,8 @@ const listLocation = () => {
       filtLoc.classList.add('dropdown-item')
       filtLoc.id = atual
       filtLoc.innerText = atual
-      filtLoc.addEventListener('click',(event)=>{
-        page=1
+      filtLoc.addEventListener('click', (event) => {
+        page = 1
         lctText.innerText = event.target.innerText
         pagination()
       })
@@ -128,13 +126,12 @@ const filtred = (param) => {
 const charJSON = []
 
 const display = async () => {
-    for (let i = 1; i < 35; i += 1) {
+  for (let i = 1; i < 35; i += 1) {
     indexer = i
     const url = `https://rickandmortyapi.com/api/character/?page=${indexer}`
     await fetch(url).then((called) => called.json())
       .then((dados) => {
         dados.results.forEach(cur => {
-          
           charJSON.push({
             name: cur.name,
             status: cur.status,
@@ -142,39 +139,10 @@ const display = async () => {
             location: cur.location,
             image: cur.image
           })
-
           stsArr.push(cur.status)
           arr.push(cur.gender)
           locArr.push(cur.location.name)
           console.log(cur.location.name)
-
-          // const box = document.createElement('section')
-          // box.classList.add('char-box')
-          // const imagem = document.createElement('img')
-          // imagem.src = cur.image;
-          // box.appendChild(imagem)
-          // const divInfo = document.createElement('div')
-          // const namer = document.createElement('h4')
-          // namer.innerText = `Name: ${cur.name}`
-          // const stts = document.createElement('p')
-          // stts.innerText = `■ Status: ${cur.status}`
-          // if (cur.status === 'Alive') {
-          //   stts.classList.add('alive')
-          // } else if (cur.status === 'unknown') {
-          //   stts.classList.add('unknow')
-          // } else {
-          //   stts.classList.add('dead')
-          // }
-          // const gnr = document.createElement('p');
-          // gnr.innerText = `Gender: ${cur.gender}`
-          // const lcl = document.createElement('p')
-          // lcl.innerText = `Location: ${cur.location.name}`
-          // divInfo.appendChild(namer)
-          // divInfo.appendChild(stts)
-          // divInfo.appendChild(gnr)
-          // divInfo.appendChild(lcl)
-          // box.appendChild(divInfo)
-          // container[0].appendChild(box)
         });
         listStatus()
         listGender()
@@ -183,49 +151,64 @@ const display = async () => {
   }
 }
 
-const putChar = () =>{
-  paginationArr.forEach((cur)=>{
+const remEmpty = () => {
+  if (!document.getElementsByClassName('empty')[0]) {} else {
+    container[0].classList.remove('empty')
+
+  }
+}
+
+const putChar = () => {
+  remEmpty()
+  if (paginationArr.length === 0) {
+    container[0].classList.add('empty')
+    let par = document.createElement('h3')
+    par.innerText = 'Nenhum resultado encontrado'
+    container[0].appendChild(par)
+  }
+  paginationArr.forEach((cur) => {
     const box = document.createElement('section')
-          box.classList.add('char-box')
-          const imagem = document.createElement('img')
-          imagem.src = cur.image;
-          box.appendChild(imagem)
-          const divInfo = document.createElement('div')
-          const namer = document.createElement('h4')
-          namer.innerText = `Name: ${cur.name}`
-          const stts = document.createElement('p')
-          stts.innerText = `■ Status: ${cur.status}`
-          if (cur.status === 'Alive') {
-            stts.classList.add('alive')
-          } else if (cur.status === 'unknown') {
-            stts.classList.add('unknow')
-          } else {
-            stts.classList.add('dead')
-          }
-          const gnr = document.createElement('p');
-          gnr.innerText = `Gender: ${cur.gender}`
-          const lcl = document.createElement('p')
-          lcl.innerText = `Location: ${cur.location.name}`
-          divInfo.appendChild(namer)
-          divInfo.appendChild(stts)
-          divInfo.appendChild(gnr)
-          divInfo.appendChild(lcl)
-          box.appendChild(divInfo)
-          container[0].appendChild(box)
+    box.classList.add('char-box')
+    const imagem = document.createElement('img')
+    imagem.src = cur.image;
+    box.appendChild(imagem)
+    const divInfo = document.createElement('div')
+    divInfo.classList.add('char-info')
+    const namer = document.createElement('h4')
+    namer.innerText = `Name: ${cur.name}`
+    const stts = document.createElement('p')
+    stts.innerText = `■ Status: ${cur.status}`
+    if (cur.status === 'Alive') {
+      stts.classList.add('alive')
+    } else if (cur.status === 'unknown') {
+      stts.classList.add('unknow')
+    } else {
+      stts.classList.add('dead')
+    }
+    const gnr = document.createElement('p');
+    gnr.innerText = `Gender: ${cur.gender}`
+    const lcl = document.createElement('p')
+    lcl.innerText = `Location: ${cur.location.name}`
+    divInfo.appendChild(namer)
+    divInfo.appendChild(stts)
+    divInfo.appendChild(gnr)
+    divInfo.appendChild(lcl)
+    box.appendChild(divInfo)
+    container[0].appendChild(box)
   })
 }
 
 
 let paginationArr = []
 
-const pagination = () =>{
+const pagination = () => {
   let filtrados = filtroLive(filtroGenero(filtroStatus(charJSON, stsText.innerText), gdrText.innerText), lctText.innerText)
-  if(page === 1){
+  if (page === 1) {
     btnBack.classList.add('disabled')
   } else {
     btnBack.classList.remove('disabled')
   }
-  if(page === Math.ceil(filtrados.length/15)){
+  if (page >= Math.ceil(filtrados.length / 15)) {
     btnNext.classList.add('disabled')
   } else {
     btnNext.classList.remove('disabled')
@@ -234,8 +217,8 @@ const pagination = () =>{
   paginationArr = []
   pager.innerText = `${page} / ${Math.ceil(filtrados.length/15)}`
   let indice = 15 * page - 15
-  for(let i = indice; i < page * 15; i += 1){
-    if(filtrados[i] !== undefined){
+  for (let i = indice; i < page * 15; i += 1) {
+    if (filtrados[i] !== undefined) {
       paginationArr.push(filtrados[i])
     }
   }
@@ -243,17 +226,26 @@ const pagination = () =>{
 
 }
 
-const changePage = () =>{
-  while(container[0].firstChild){
+const changePage = () => {
+  while (container[0].firstChild) {
     container[0].removeChild(container[0].firstChild)
   }
 }
-const ordenado = async () =>{
+const ordenado = async () => {
   await display()
-  .then(()=>{
-    pagination()
-  })
+    .then(() => {
+      pagination()
+    })
 }
 ordenado()
 
 //próximo passo é ordenar
+module.exports = {
+  // listStatus,
+  // listGender,
+  // listLocation,
+  filtroStatus,
+  filtroGenero,
+  filtroLive,
+
+}
