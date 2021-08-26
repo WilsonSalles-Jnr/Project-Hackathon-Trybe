@@ -8,6 +8,7 @@ const gdrText = document.getElementById('Gender-drop')
 const lctText = document.getElementById('Location-drop')
 const btnNext = document.getElementById('nextPage')
 const btnBack = document.getElementById('backPage')
+const resultados = document.getElementById('resultados')
 
 btnNext.addEventListener('click', () => {
   page += 1
@@ -157,8 +158,11 @@ const remEmpty = () => {
 
   }
 }
-
+const quantidade = () => {
+  resultados.innerText = `Resultados encontrados: ${filtroLive(filtroGenero(filtroStatus(charJSON, stsText.innerText), gdrText.innerText), lctText.innerText).length}`
+}
 const putChar = () => {
+  quantidade()
   remEmpty()
   if (paginationArr.length === 0) {
     container[0].classList.add('empty')
@@ -240,12 +244,12 @@ const ordenado = async () => {
 ordenado()
 
 //próximo passo é ordenar
-module.exports = {
-  // listStatus,
-  // listGender,
-  // listLocation,
-  filtroStatus,
-  filtroGenero,
-  filtroLive,
+// module.exports = {
+//   // listStatus,
+//   // listGender,
+//   // listLocation,
+//   filtroStatus,
+//   filtroGenero,
+//   filtroLive,
 
-}
+// }
